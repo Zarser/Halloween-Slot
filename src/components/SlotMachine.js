@@ -128,8 +128,13 @@ const SlotMachine = ({ currentUser, addToLeaderboard }) => {
         [bonusIcon]: 150,
     };
 
-    const spinReels = () => {
-      // Check for credits and spin cooldown
+    const spinReels = (isBonusSpin = false, multiplier = 1) => {
+      // Explicitly reset winnings for regular spins only
+      if (!isBonusSpin) {
+          setWinnings(0);
+      }
+  
+      // Ensure enough credits and cooldown
       if (credits < betSize || spinCooldown) {
           if (credits < betSize) {
               alert("Not enough credits to place this bet!");
@@ -146,9 +151,6 @@ const SlotMachine = ({ currentUser, addToLeaderboard }) => {
       setSpinning(true);
       setSpinCount(spinCount + 1);
       
-      // Reset winnings to 0 when spinning normally
-      setWinnings(0); // Reset winnings here
-  
       // Generate new reel symbols
       let newReels = Array.from({ length: 3 }, () => {
           return Array.from({ length: 3 }, () => weightedSymbolsArray[Math.floor(Math.random() * weightedSymbolsArray.length)]);
@@ -166,29 +168,35 @@ const SlotMachine = ({ currentUser, addToLeaderboard }) => {
       setReels(newReels);
   
       setTimeout(() => {
-          setSpinning(false);
-          const baseWinnings = checkForWin(newReels);
-          const totalWinnings = baseWinnings; // No multiplier for regular spins
-  
-          if (totalWinnings > 0) {
-              console.log(`You won: ${totalWinnings}`);
-              setWin(true);
-              setCredits((credits) => credits + totalWinnings);
-              setWinnings(totalWinnings); // Set winnings for regular spins
-  
-              // Play win sound
-              try {
-                  winSoundEffect.currentTime = 0; // Reset to start of sound
-                  winSoundEffect.play();
-              } catch (error) {
-                  console.log("Error playing win sound:", error);
-              }
-          } else {
-              console.log("No winnings this spin.");
-              setWin(false);
-          }
-      },1000); // End of spin delay
-  };
+        setSpinning(false);
+        const baseWinnings = checkForWin(newReels);
+        const totalWinnings = baseWinnings * multiplier;
+
+        if (totalWinnings > 0) {
+            console.log(`You won: ${totalWinnings}`);
+            setWin(true);
+            setCredits((prevCredits) => prevCredits + totalWinnings);
+
+            if (isBonusSpin) {
+                // Accumulate bonus total
+                setBonusTotal((prevBonusTotal) => prevBonusTotal + totalWinnings);
+            } else {
+                // Set winnings for regular spins
+                setWinnings(totalWinnings);
+            }
+
+            try {
+                winSoundEffect.currentTime = 0;
+                winSoundEffect.play();
+            } catch (error) {
+                console.log("Error playing win sound:", error);
+            }
+        } else {
+            console.log("No winnings this spin.");
+            setWin(false);
+        }
+    }, 2500);
+};
   
   
 
@@ -276,44 +284,48 @@ const SlotMachine = ({ currentUser, addToLeaderboard }) => {
           spinReels(true, currentMultiplier); // Spin with bonus multiplier
           setSpinsLeft(spinsLeft - 1);
           setCurrentMultiplierMessage(`x${currentMultiplier}`);
-          setBonusMessageVisible(true);
   
-          // Check if spins hit 0 and handle completion
+          // Remove bonusMessageVisible update here
           if (spinsLeft === 1) { // This will be the last spin
               setTimeout(() => {
                   handleBonusComplete(); // Call to end bonus round
-              }, 2000); // Ensure this aligns with the spin delay
+              }, 2000);
           }
       } else {
           alert("No spins left in the bonus round!");
       }
   };
 
-    const startBonusRound = () => {
-      setBonusRoundActive(true);
-      setBonusTotal(0);
-      setSpinsLeft(5);
-      setBonusMessageVisible(true); // Show bonus message at start
-      bonusSoundEffect.play();
-  };
-  
-  const handleBonusComplete = () => {
-    if (bonusRoundActive) {
-        console.log("Ending bonus round with total win:", bonusTotal);
-        setBonusRoundActive(false);
-        setCredits((prevCredits) => prevCredits + bonusTotal);
-        setBonusRoundEndMessage(`Bonus Round Over - Total Win: ${bonusTotal}`);
-        setWinnings(bonusTotal); // Set winnings to total bonus winnings
-        setBonusTotal(0);
-        setSpinsLeft(0);
-        setCurrentMultiplierMessage(''); // Reset multiplier message here
+  const startBonusRound = () => {
+    setBonusRoundActive(true);
+    setBonusTotal(0);
+    setSpinsLeft(5);
+    setBonusMessageVisible(true); // Show bonus message only when bonus round starts
+    bonusSoundEffect.play();
 
-        // Reset after a timeout
-        setTimeout(() => {
-            setBonusRoundEndMessage(''); // Clear the bonus round end message
-            setWinnings(0); // Ensure winnings reset to 0
-        }, 3500);
-    }
+    // Hide the message after a short time
+    setTimeout(() => {
+        setBonusMessageVisible(false); // Hide after initial trigger
+    }, 1500); // Adjust delay as needed for message visibility
+};
+  
+const handleBonusComplete = () => {
+  if (bonusRoundActive) {
+      console.log("Ending bonus round with total win:", bonusTotal);
+      setBonusRoundActive(false);
+      setCredits((prevCredits) => prevCredits + bonusTotal);
+      setBonusRoundEndMessage(`Bonus Round Over - Total Win: ${bonusTotal}`);
+      setWinnings(bonusTotal); // Set winnings to total bonus winnings
+      setBonusTotal(0);
+      setSpinsLeft(0);
+      setCurrentMultiplierMessage('');
+
+      // Reset after a timeout to clear end message
+      setTimeout(() => {
+          setBonusRoundEndMessage('');
+          setWinnings(0);
+      }, 3500);
+  }
 };
 
 
