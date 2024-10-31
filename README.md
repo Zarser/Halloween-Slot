@@ -2,6 +2,15 @@
 
 Welcome to the **Halloween Slot Game**! Spin the reels, match symbols, and enjoy thrilling bonus rounds in this spooky-themed slot machine experience. This project is built with React and offers a fun way to test your luck!
 
+## Table of Contents
+
+- [Game Description](#game-description)
+- [How It Works](#how-it-works)
+- [Game Logic](#game-logic)
+- [Installation](#installation)
+- [Attributions](#attributions)
+
+
 ## Game Description
 
 The Halloween Slot Game is a browser-based slot machine featuring Halloween-themed symbols. Players can spin the reels to match symbols for prizes. The game includes a bonus round that can be triggered by pressing the Bonus button, which costs 100 times the current bet size. The goal is to match symbols either horizontally or diagonally to win!
@@ -31,6 +40,10 @@ The core game logic is implemented using React components. Here’s a high-level
 
 - **Assets**:
   - Images of symbols are stored in the `assets/images` folder and imported into the components for display.
+
+### Attributions
+- Symbols is from FlatIcon.
+- All sounds if from free licens of youtube.
 
 ## Installation
 
