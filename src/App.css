@@ -1,38 +1,247 @@
-.App {
-  text-align: center;
+body{
+  background-color: black;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.slot-machine {
   display: flex;
   flex-direction: column;
   align-items: center;
+  background: url('../src/assets/images/slot-machine-bg.jpg') no-repeat center center; /* Background image for the slot machine */
+  background-size: cover;
+  border: 5px solid gold; /* Gold border for a classic look */
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+  position: relative; /* Position for game over message */
+}
+
+.credits, .winnings {
+  font-size: 24px; /* Font size */
+  margin: 10px 0;
+  background-color: white;
+  border-radius: 25px;
+  box-shadow: inset 0px 0px 10px rgba(0,0,0,0.9);
+}
+
+.winnings h3{
+  font-size: 1rem;
+  padding: 5px 50px 5px 50px;
+  
+}
+
+.bet-size h3{
+  color: red;
+}
+
+h1{
+  color:#ff0000;
+}
+
+h2{
+  color: rgb(0, 0, 0);
+  font-size: 1rem;
+  padding: 5px 50px 5px 50px;
+}
+
+.reels {
+  display: flex;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  margin: 20px 0;
+}
+
+.reel {
+  margin: 0 10px;
+  width: 80px; /* Width for the reels */
+  border: 1px solid #ff0000; /* White border around reels */
+  border-radius: 10px;
+  overflow: hidden; /* Hide overflow */
+  background-color: rgba(155, 155, 155, 0.8); /* Dark background */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Shadow effect */
+  box-shadow: 0px 0px 5px rgb(255, 0, 0);
+}
+
+.spin {
+  padding: 10px 20px;
+  background-color: #28a745; /* Green button color */
   color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 18px;
+  transition: background-color 0.3s ease; /* Smooth hover effect */
+  box-shadow: inset 0px 0px 10px rgba(0,0,0,0.9);
 }
 
-.App-link {
-  color: #61dafb;
+.spin:hover {
+  background-color: #218838; /* Darker green on hover */
+  transform: scale(0.9);
+  box-shadow:  1px 1px 20px #ff0000;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+.active {
+  background-color: #ffc107; /* Highlight active bet size */
+}
+
+.win-message, .game-over-message, .bonus-end-message, .bonus-message {
+  font-size: 36px;
+  color: gold; /* Color for win messages */
+  text-align: center;
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1000;
+  background-color: rgba(0, 0, 0, 0.493);
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(255, 215, 0, 0.5); /* Gold glow effect */
+}
+
+.bonus-summary {
+  color: white;
+  background-color: rgba(128, 0, 128, 0.8); /* Purple color for bonus summary */
+  padding: 15px;
+  border-radius: 10px;
+  text-align: center;
+  margin: 10px 0;
+}
+
+.control-button{
+  background-color: #ff0000; /* Red color for button */
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  padding: 5px 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+  margin: 0 5px 0 5px;
+}
+
+.control-button:hover{
+  transform: scale(0.9);
+}
+/* Container for Bet Size with fixed box background */
+.bet-size {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.8); /* Dark semi-transparent background */
+  padding: 10px 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  width: 180px; /* Fixed width for the box */
+  margin: 20px auto;
+}
+
+/* Bet Size Label */
+.bet-size h3 {
+  margin: 0 10px 0 0;
+  color: #fff;
+  font-size: 1rem;
+}
+
+/* Bet Size Number Styling */
+.betsize {
+  font-size: 1.1rem;
+  color: #ffdd57; /* Bright color for the bet size amount */
+  font-weight: bold;
+  margin: 0 15px;
+  background: #333; /* Darker background for visibility */
+  padding: 5px 10px;
+  border-radius: 8px;
+  min-width: 40px;
+  text-align: center;
+  display: inline-block;
+}
+
+/* Button Styling */
+.betsize-b {
+  background-color: #ff0000; /* Orange color for button */
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  padding: 5px 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+}
+
+/* Right Arrow Button (Increase Bet Size) */
+.betsize-b + button {
+  background-color: #ff4500; /* Orange color for button */
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.5rem;
+  padding: 5px 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+  margin-left: 10px;
+}
+
+/* Button Hover Effect */
+.betsize-b:hover,
+.betsize-b + button:hover {
+  background-color: #ff6347; /* Slightly lighter shade of orange on hover */
+}
+
+
+.bonus-round {
+  position: absolute; /* Positioning can be adjusted as necessary */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(0, 0, 0, 0.8);
+  color: #ffdd57; /* This was from the second definition */
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+  z-index: 20; /* Ensure it appears over other elements */
+  text-align: center; /* Add text alignment if needed */
+  margin: 10px 0; /* Optional margin */
+}
+
+
+.multiplier-message{
+  font-size: 20px;
+  color: rgb(255, 0, 0); /* Color for win messages */
+  animation: zoom 1s infinite alternate;
+}
+
+@keyframes zoom {
+  0% {
+    opacity: 1;
+    transform: scale(0.9);
   }
-  to {
-    transform: rotate(360deg);
+  100% {
+    opacity: 0.5;
+    transform: scale(1.2);
   }
+}
+
+.instructions {
+  color: white;
+  margin-top: 20px;
+  padding: 15px;
+  background-color: #474747af;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+}
+
+.instructions h2 {
+  margin-bottom: 10px;
+}
+
+.instructions .win-amount {
+  display: flex;
+  align-items: center;
+  margin: 5px 0;
+}
+
+.instructions p {
+  margin: 5px 0;
 }

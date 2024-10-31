@@ -1,0 +1,67 @@
+.reel {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden; /* Hide overflow to create the reel effect */
+  width: 60px; /* Reel width */
+  height: 180px; /* Reel height for 3 symbols */
+  margin: 5px;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  background: #ffffff;
+  position: relative;
+  box-shadow: inset 0px 0px 10px rgba(0,0,0,0.9);
+}
+
+.symbol {
+  width: 100%;
+  height: 60px; /* Same as the individual symbol's height */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: background-color 0.5s ease;
+}
+
+.symbol img {
+  width: 90%; /* Adjust size to fit within the symbol box */
+  height: 90%;
+  object-fit: contain; /* Ensure images are contained within their bounds */
+}
+
+.winning {
+  background-color: red;
+  animation: flash 1s infinite alternate;
+}
+
+@keyframes flash {
+  0% {
+    background-color: red;
+    opacity: 1;
+  }
+  100% {
+    background-color: transparent;
+    opacity: 0.5;
+    transform: scale(1.2);
+  }
+}
+
+
+/* Reel's spinning effect */
+@keyframes spinSymbol {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-400px); /* Move up to simulate spin */
+  }
+}
+
+.reel.spinning .symbol {
+  animation: spinSymbol 0.5s cubic-bezier(0.25, 0.1, 0.25, 1) forwards; /* Spin for the duration */
+}
+
+.winning-credits {
+  font-size: 20px;
+  color: gold;
+  text-align: center;
+  margin: 10px 0;
+}

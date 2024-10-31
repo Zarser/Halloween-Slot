@@ -1,0 +1,25 @@
+/* Instructions.css */
+.instructions-container {
+    background-color: rgba(109, 108, 108, 0.411);
+    background-size: cover; /* Cover the entire area */
+    padding: 20px;
+    margin: 20px;
+    border-radius: 8px; /* Rounded corners */
+    color: white; /* Text color */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.623); /* Shadow effect */
+}
+
+h2, h3, h4 {
+    margin: 10px 0; /* Margin for headings */
+}
+
+.symbol-icon {
+    width: 30px; /* Set a specific width for the icons */
+    height: 30px; /* Set a specific height for the icons */
+    margin-right: 10px; /* Space between icon and text */
+    vertical-align: middle; /* Align icon with text */
+}
+
+ul{
+    list-style-type: none;
+}
