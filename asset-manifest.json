@@ -1,0 +1,30 @@
+{
+  "files": {
+    "main.css": "/Halloween-Slot/static/css/main.f24ef7b4.css",
+    "main.js": "/Halloween-Slot/static/js/main.812cd83c.js",
+    "static/media/bg-sound.mp3": "/Halloween-Slot/static/media/bg-sound.90e68f6aa4f346e1f587.mp3",
+    "static/media/bonus.mp3": "/Halloween-Slot/static/media/bonus.70faef404d9c63701521.mp3",
+    "static/media/slot-machine-bg.jpg": "/Halloween-Slot/static/media/slot-machine-bg.6f88d0b4f72db21fc05e.jpg",
+    "static/media/spin.mp3": "/Halloween-Slot/static/media/spin.9dfdbc9c4d56bc16f8b8.mp3",
+    "static/media/win.mp3": "/Halloween-Slot/static/media/win.2e9b0526af275492ba5c.mp3",
+    "static/media/pumpkin.png": "/Halloween-Slot/static/media/pumpkin.eaf8a3393a9935a270e5.png",
+    "static/media/dracula.png": "/Halloween-Slot/static/media/dracula.68029c3945132158ebd9.png",
+    "static/media/toad.png": "/Halloween-Slot/static/media/toad.0c4c78494e8940975a33.png",
+    "static/media/ghost-face.png": "/Halloween-Slot/static/media/ghost-face.2b3ed71dd4895bc5e3b6.png",
+    "static/media/witch.png": "/Halloween-Slot/static/media/witch.d852f6691f9657d1f33e.png",
+    "static/media/witch-hat.png": "/Halloween-Slot/static/media/witch-hat.f57d94460a057f663cd7.png",
+    "static/media/cauldron.png": "/Halloween-Slot/static/media/cauldron.5a3cbd56a8ca27aa3dec.png",
+    "static/media/halloween.png": "/Halloween-Slot/static/media/halloween.0dfcea2ad1667d974c6b.png",
+    "static/media/ghost.png": "/Halloween-Slot/static/media/ghost.f4875ffd63553798afb6.png",
+    "static/media/halloween-candy.png": "/Halloween-Slot/static/media/halloween-candy.3672a394ae07e34f0802.png",
+    "static/media/tombstone.png": "/Halloween-Slot/static/media/tombstone.4bd167589677ff7c3a11.png",
+    "static/media/bonus.png": "/Halloween-Slot/static/media/bonus.5ebaa89e7571acf4f947.png",
+    "index.html": "/Halloween-Slot/index.html",
+    "main.f24ef7b4.css.map": "/Halloween-Slot/static/css/main.f24ef7b4.css.map",
+    "main.812cd83c.js.map": "/Halloween-Slot/static/js/main.812cd83c.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.f24ef7b4.css",
+    "static/js/main.812cd83c.js"
+  ]
+}
