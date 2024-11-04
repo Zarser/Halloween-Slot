@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/Halloween-Slot/static/css/main.f24ef7b4.css",
-    "main.js": "/Halloween-Slot/static/js/main.812cd83c.js",
+    "main.css": "/Halloween-Slot/static/css/main.8ac281a0.css",
+    "main.js": "/Halloween-Slot/static/js/main.ea933323.js",
     "static/media/bg-sound.mp3": "/Halloween-Slot/static/media/bg-sound.90e68f6aa4f346e1f587.mp3",
     "static/media/bonus.mp3": "/Halloween-Slot/static/media/bonus.70faef404d9c63701521.mp3",
     "static/media/slot-machine-bg.jpg": "/Halloween-Slot/static/media/slot-machine-bg.6f88d0b4f72db21fc05e.jpg",
@@ -20,11 +20,11 @@
     "static/media/tombstone.png": "/Halloween-Slot/static/media/tombstone.4bd167589677ff7c3a11.png",
     "static/media/bonus.png": "/Halloween-Slot/static/media/bonus.5ebaa89e7571acf4f947.png",
     "index.html": "/Halloween-Slot/index.html",
-    "main.f24ef7b4.css.map": "/Halloween-Slot/static/css/main.f24ef7b4.css.map",
-    "main.812cd83c.js.map": "/Halloween-Slot/static/js/main.812cd83c.js.map"
+    "main.8ac281a0.css.map": "/Halloween-Slot/static/css/main.8ac281a0.css.map",
+    "main.ea933323.js.map": "/Halloween-Slot/static/js/main.ea933323.js.map"
   },
   "entrypoints": [
-    "static/css/main.f24ef7b4.css",
-    "static/js/main.812cd83c.js"
+    "static/css/main.8ac281a0.css",
+    "static/js/main.ea933323.js"
   ]
 }
