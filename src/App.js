@@ -9,7 +9,7 @@ const App = () => {
   return (
     <Router>
       <div className="App" align="center">
-        <h1><p>Halloween Slot</p></h1>
+        <h1>Halloween Slot</h1>
         <Routes>
           <Route path="/slot-machine" element={<SlotMachine />} />
           <Route path="/" element={<Login />} /> {/* Default route to login */}
