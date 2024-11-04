@@ -129,76 +129,83 @@ const SlotMachine = ({ currentUser, addToLeaderboard }) => {
     };
 
     const spinReels = (isBonusSpin = false, multiplier = 1) => {
-      // Explicitly reset winnings for regular spins only
-      if (!isBonusSpin) {
-          setWinnings(0);
-      }
-  
-      // Ensure enough credits and cooldown
-      if (credits < betSize || spinCooldown) {
-          if (credits < betSize) {
-              alert("Not enough credits to place this bet!");
-              setGameOver(true);
-          }
-          return;
-      }
-  
-      setSpinCooldown(true);
-      setTimeout(() => setSpinCooldown(false), 1500);
-  
-      spinSoundEffect.play(); // Play spin sound
-      setCredits((credits) => credits - betSize);
-      setSpinning(true);
-      setSpinCount(spinCount + 1);
-      
-      // Generate new reel symbols
-      let newReels = Array.from({ length: 3 }, () => {
-          return Array.from({ length: 3 }, () => weightedSymbolsArray[Math.floor(Math.random() * weightedSymbolsArray.length)]);
-      });
-  
-      // Slightly increase chance of a win pattern
-      if (Math.random() < 0.15) {
-          const patternToMatch = winPatterns[Math.floor(Math.random() * winPatterns.length)];
-          const symbolToUse = weightedSymbolsArray[Math.floor(Math.random() * weightedSymbolsArray.length)];
-          patternToMatch.forEach(([row, col]) => {
-              newReels[row][col] = symbolToUse;
-          });
-      }
-  
-      setReels(newReels);
-  
-      setTimeout(() => {
-        setSpinning(false);
-        const baseWinnings = checkForWin(newReels);
-        const totalWinnings = baseWinnings * multiplier;
-
-        if (totalWinnings > 0) {
-            console.log(`You won: ${totalWinnings}`);
-            setWin(true);
-            setCredits((prevCredits) => prevCredits + totalWinnings);
-
-            if (isBonusSpin) {
-                // Accumulate bonus total
-                setBonusTotal((prevBonusTotal) => prevBonusTotal + totalWinnings);
-            } else {
-                // Set winnings for regular spins
-                setWinnings(totalWinnings);
+        // Ensure enough credits and cooldown
+        if (credits < betSize || spinCooldown) {
+            if (credits < betSize) {
+                alert("Not enough credits to place this bet!");
+                setGameOver(true);
             }
-
-            try {
-                winSoundEffect.currentTime = 0;
-                winSoundEffect.play();
-            } catch (error) {
-                console.log("Error playing win sound:", error);
-            }
-        } else {
-            console.log("No winnings this spin.");
-            setWin(false);
+            return;
         }
-    }, 2500);
-};
-  
-  
+    
+        // Start cooldown and play sound
+        setSpinCooldown(true);
+        setTimeout(() => setSpinCooldown(false), 1500);
+        spinSoundEffect.play(); // Play spin sound
+        setCredits((prevCredits) => prevCredits - betSize); // Update credits
+        setSpinning(true);
+        setSpinCount((prevCount) => prevCount + 1); // Update spin count
+    
+        // Reset winnings to 0 for normal spins
+        if (!isBonusSpin) {
+            console.log("Resetting winnings to 0 for a normal spin."); // Debug log
+            setWinnings(0); // Reset winnings for regular spins
+        }
+    
+        // Generate new reel symbols
+        let newReels = Array.from({ length: 3 }, () => {
+            return Array.from({ length: 3 }, () => weightedSymbolsArray[Math.floor(Math.random() * weightedSymbolsArray.length)]);
+        });
+    
+        // Slightly increase chance of a win pattern
+        if (Math.random() < 0.15) {
+            const patternToMatch = winPatterns[Math.floor(Math.random() * winPatterns.length)];
+            const symbolToUse = weightedSymbolsArray[Math.floor(Math.random() * weightedSymbolsArray.length)];
+            patternToMatch.forEach(([row, col]) => {
+                newReels[row][col] = symbolToUse;
+            });
+        }
+    
+        setReels(newReels);
+    
+        setTimeout(() => {
+            setSpinning(false);
+    
+            // Calculate winnings after spin
+            const baseWinnings = checkForWin(newReels);
+            const totalWinnings = baseWinnings * multiplier;
+    
+            // Handle winnings
+            if (totalWinnings > 0) {
+                console.log(`You won: ${totalWinnings}`); // Debug log
+                setWin(true);
+                setCredits((prevCredits) => prevCredits + totalWinnings); // Update credits based on winnings
+    
+                if (isBonusSpin) {
+                    // Accumulate bonus total
+                    setBonusTotal((prevBonusTotal) => prevBonusTotal + totalWinnings);
+                } else {
+                    // Set winnings for regular spins
+                    console.log(`Setting winnings to: ${totalWinnings}`); // Debug log
+                    setWinnings(totalWinnings); // Set winnings for regular spins
+                }
+    
+                try {
+                    winSoundEffect.currentTime = 0;
+                    winSoundEffect.play();
+                } catch (error) {
+                    console.log("Error playing win sound:", error);
+                }
+            } else {
+                console.log("No winnings this spin."); // Debug log
+                setWin(false);
+            }
+    
+            // Check the winnings state after calculations
+            console.log("Final winnings after spin:", totalWinnings); // Debug log
+        }, 2000);
+    };
+    
 
     const checkForWin = (reels) => {
       let totalWinnings = 0;
@@ -332,12 +339,18 @@ const handleBonusComplete = () => {
 
 
 const handleBonus = () => {
+    const bonusCost = 100 * betSize; // Calculate bonus buy cost
+
     if (bonusRoundActive) {
         handleBonusComplete();
+    } else if (credits >= bonusCost) { // Check if the user has enough credits
+        setCredits(credits - bonusCost); // Deduct the cost from credits
+        startBonusRound(); // Start the bonus round
     } else {
-        startBonusRound();
+        alert(`Not enough credits to buy bonus! You need ${bonusCost} credits.`);
     }
 };
+
 
 
     return (
