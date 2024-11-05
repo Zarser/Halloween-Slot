@@ -1,8 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import SlotMachine from './components/SlotMachine';
-import Login from './components/Login';
-import Register from './components/Register'; // Import the Register component
+import SlotMachine from './components/SlotMachine'; // Keep only the SlotMachine component
 import './App.css';
 
 const App = () => {
@@ -12,8 +10,7 @@ const App = () => {
         <h1>Halloween Slot</h1>
         <Routes>
           <Route path="/slot-machine" element={<SlotMachine />} />
-          <Route path="/" element={<Login />} /> {/* Default route to login */}
-          <Route path="/register" element={<Register />} /> {/* Route for registration */}
+          <Route path="/" element={<SlotMachine />} /> {/* Redirect to SlotMachine */}
         </Routes>
       </div>
     </Router>
